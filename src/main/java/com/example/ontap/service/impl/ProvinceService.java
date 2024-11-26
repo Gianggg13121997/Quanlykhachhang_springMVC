@@ -14,7 +14,7 @@ public class ProvinceService implements IProvinceService {
     private IProvinceRepository iProvinceRepository;
 
     @Override
-    public Iterable<Province> findAll() {
+    public Iterable<Province> findAll() throws Exception {
         return iProvinceRepository.findAll();
     }
 
@@ -24,7 +24,7 @@ public class ProvinceService implements IProvinceService {
     }
 
     @Override
-    public Optional<Province> findById(Long id) {
+    public Optional<Province> findById(Long id)throws Exception {
         return iProvinceRepository.findById(id);
     }
 

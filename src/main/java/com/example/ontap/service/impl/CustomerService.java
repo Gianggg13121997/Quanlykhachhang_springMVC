@@ -12,7 +12,7 @@ public class CustomerService implements ICustomerService {
     @Autowired
     private ICustomerRepository customerRepository;
     @Override
-    public Iterable<Customer> findAll() {
+    public Iterable<Customer> findAll() throws Exception {
         return customerRepository.findAll();
     }
 
@@ -23,7 +23,11 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public Optional<Customer> findById(Long id) {
+    public Optional<Customer> findById(Long id) throws Exception {
+        Optional<Customer> customer = customerRepository.findById(id);
+        if(!customer.isPresent()){
+            throw new Exception("Customer not found");
+        }
         return customerRepository.findById(id);
     }
 

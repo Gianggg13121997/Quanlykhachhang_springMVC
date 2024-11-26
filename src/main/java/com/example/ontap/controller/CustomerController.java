@@ -27,14 +27,24 @@ public class CustomerController {
 
     @ModelAttribute("provinces")
     public Iterable<Province> listProvinces() {
-        return provinceService.findAll();
+        try {
+            return provinceService.findAll();
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @GetMapping
     public ModelAndView listCustomer() {
         ModelAndView modelAndView = new ModelAndView("/customer/list");
-        Iterable<Customer> customers = customerService.findAll();
-        modelAndView.addObject("customers", customers);
+        try {
+            Iterable<Customer> customers = customerService.findAll();
+            modelAndView.addObject("customers", customers);
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         return modelAndView;
     }
 
@@ -59,14 +69,20 @@ public class CustomerController {
 
     @GetMapping("/update/{id}")
     public ModelAndView updateForm(@PathVariable Long id) {
-        Optional<Customer> customer = customerService.findById(id);
-        if (customer.isPresent()) {
-            ModelAndView modelAndView = new ModelAndView("/customer/update");
-            modelAndView.addObject("customer", customer.get());
-            return modelAndView;
-        } else {
-            return new ModelAndView("/error_404");
+
+        try {
+            Optional<Customer> customer = customerService.findById(id);
+            if (customer.isPresent()) {
+                ModelAndView modelAndView = new ModelAndView("/customer/update");
+                modelAndView.addObject("customer", customer.get());
+                return modelAndView;
+            } else {
+                return new ModelAndView("/error_404");
+            }
+        }catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
     }
 
     @PostMapping("/update/{id}")

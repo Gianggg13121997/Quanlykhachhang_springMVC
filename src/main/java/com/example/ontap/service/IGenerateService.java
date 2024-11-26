@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IGenerateService<T> {
-    Iterable<T> findAll();
+    Iterable<T> findAll() throws Exception;
 
     void save(T t);
 
-   Optional<T> findById(Long id);
+   Optional<T> findById(Long id) throws Exception;
 
     void remove(Long id);
 }

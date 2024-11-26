@@ -23,8 +23,13 @@ public class ProvinceController {
     @GetMapping
     public ModelAndView listProvince() {
         ModelAndView modelAndView = new ModelAndView("/province/list");
-        Iterable<Province> provinces = provinceService.findAll();
-        modelAndView.addObject("provinces", provinces);
+        try {
+            Iterable<Province> provinces = provinceService.findAll();
+            modelAndView.addObject("provinces", provinces);
+        }catch (Exception e){
+            throw new RuntimeException();
+        }
+
         return modelAndView;
     }
 

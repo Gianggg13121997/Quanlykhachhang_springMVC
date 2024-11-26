@@ -21,8 +21,13 @@ public class ProvinceFormatter implements Formatter<Province> {
 
     @Override
     public Province parse(String text, Locale locale) {
-        Optional<Province> provinceOptional = provinceService.findById(Long.parseLong(text));
-        return provinceOptional.orElse(null);
+        try {
+            Optional<Province> provinceOptional = provinceService.findById(Long.parseLong(text));
+            return provinceOptional.orElse(null);
+        }catch (Exception e) {
+            throw new RuntimeException();
+        }
+
     }
 
     @Override
